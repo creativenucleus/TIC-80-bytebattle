@@ -37,6 +37,7 @@
 #include "wave_writer.h"
 #include "ext/gif.h"
 #include "ext/fft.h"
+#include <stdio.h>
 
 #endif
 
@@ -2179,8 +2180,7 @@ static void doCodeImport(Studio* studio)
 
                     if(x == 0 && y == 0)    // If we're getting a run command, then run the code
                     {
-                        if(studio->mode != TIC_RUN_MODE)
-                            runGame(studio);
+                        runGame(studio);
                     }
                     else    // Otherwise, set the cursor position and set editor mode if we're in run mode
                     {
@@ -2194,6 +2194,9 @@ static void doCodeImport(Studio* studio)
         }
 
         fclose(file);
+
+        // We read this one, so remove it...
+        remove(studio->lovebyte.imp);
     }
 }
 
