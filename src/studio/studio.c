@@ -2172,15 +2172,17 @@ static void doCodeImport(Studio* studio)
                     s32 x = atoi(start);
                     s32 y = atoi(sep + 1);
 
-                    if(x == 0 && y == 0)
+                    // Load code into editor
+                    s32 offset = end - code.data + 1;
+                    memcpy(studio->code->src, code.data + offset, sizeof(tic_code) - offset);
+
+                    if(x == 0 && y == 0)    // If we're getting a run command, then run the code
                     {
                         if(studio->mode != TIC_RUN_MODE)
                             runGame(studio);
                     }
-                    else
+                    else    // Otherwise, set the cursor position and set editor mode if we're in run mode
                     {
-                        s32 offset = end - code.data + 1;
-                        memcpy(studio->code->src, code.data + offset, sizeof(tic_code) - offset);
                         codeSetPos(studio->code, x - 1, y - 1);
 
                         if(studio->mode == TIC_RUN_MODE)
