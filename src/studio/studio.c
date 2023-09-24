@@ -2681,7 +2681,7 @@ Studio* studio_create(s32 argc, char **argv, s32 samplerate, tic80_pixel_color_f
 
     if(args.codeexport)
         studio->lovebyte.exp = strdup(args.codeexport);
-    else if(args.codeimport)
+    if(args.codeimport)
         studio->lovebyte.imp = strdup(args.codeimport);
 
     studio->lovebyte.delay = args.delay;
