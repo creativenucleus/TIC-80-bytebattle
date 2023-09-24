@@ -2337,7 +2337,8 @@ void studio_tick(Studio* studio, tic80_input input)
 
         if(lb->exp)
             doCodeExport(studio);
-        else if(lb->imp)
+        
+	if(lb->imp)
             doCodeImport(studio);
 
         lb->ticks = 0;
