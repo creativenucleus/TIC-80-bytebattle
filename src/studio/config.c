@@ -239,7 +239,7 @@ static void setDefault(Config* config)
             .vsync          = DEFAULT_VSYNC,
             .fullscreen     = false,
 #if defined(BUILD_EDITORS)
-            .devmode        = false,
+            .devmode        = true,
 #endif
         },
     };
