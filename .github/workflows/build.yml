@@ -14,7 +14,7 @@ jobs:
     runs-on: windows-2019
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
           fetch-depth: 0
@@ -31,17 +31,17 @@ jobs:
           cmake --build . --config %BUILD_TYPE% --parallel
 
       - name: Deploy
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "tic80-windows-pro"
           path: build/bin/tic80.exe
 
   # === Ubuntu PRO ===
   linux-pro:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
           fetch-depth: 0
@@ -63,23 +63,23 @@ jobs:
           cpack
 
       - name: Deploy DEB
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "tic80-linux-deb-pro"
           path: build/tic80.deb
 
       - name: Deploy ZIP
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "tic80-linux-pro"
           path: build/bin/tic80
 
-  # === MacOS 10.15 PRO ===
+  # === MacOS 12 PRO ===
   macos-pro:
-    runs-on: macos-10.15
+    runs-on: macos-12
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
           fetch-depth: 0
@@ -96,29 +96,13 @@ jobs:
           cp *.dmg tic80.dmg
 
       - name: Deploy DMG
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "tic80-macos-dmg-pro"
           path: build/tic80.dmg
 
       - name: Deploy
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: "tic80-macos-pro"
           path: build/bin/tic80
-
-  # === Delete PRO artifacts ===
-  delete-pro:
-    needs: [windows-pro, linux-pro, macos-pro]
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Delete artifacts
-        uses: geekyeggo/delete-artifact@v1
-        with:
-          name: |
-            tic80-macos-pro
-            tic80-macos-dmg-pro
-            tic80-windows-pro
-            tic80-linux-deb-pro
-            tic80-linux-pro
