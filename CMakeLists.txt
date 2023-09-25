@@ -757,7 +757,10 @@ if(BUILD_DEMO_CARTS)
     target_link_libraries(xplode tic80core png giflib)
 
     if(LINUX)
-        target_link_libraries(xplode m)
+        target_link_libraries(xplode m pthread dl)
+        target_link_libraries(cart2prj pthread dl)
+        target_link_libraries(prj2cart pthread dl)
+        target_link_libraries(wasmp2cart pthread dl)
     endif()
 
     file(GLOB DEMO_CARTS
